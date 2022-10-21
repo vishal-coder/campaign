@@ -1,0 +1,27 @@
+.campaignform {
+  margin-top: 2rem;
+  display: flex;
+  align-content: space-between;
+  justify-content: space-between;
+  gap: 10rem;
+}
+
+.datepart {
+  /* flex: 5; */
+  /* flex: 1; */
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-content: flex-start;
+  margin-left: 1rem;
+  gap: 1rem;
+}
+
+.searchpart {
+  /* flex: 7; */
+  /* flex: 1; */
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-right: 1rem;
+}

@@ -1,0 +1,12 @@
+.campaignwrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-top: 5rem !important;
+  margin: auto;
+  border: 2px solid black;
+  background-color: antiquewhite;
+  gap: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
