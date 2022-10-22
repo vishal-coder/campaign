@@ -1,17 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./campaigndata.css";
 import Table from "react-bootstrap/Table";
 import campaignStaticData from "../services/campaignData";
 import { useDispatch, useSelector } from "react-redux";
 import { addCampaigns } from "../store/CampaignSlice";
 import budgetFormatter from "../services/NumberToWord";
+import getUserData from "../services/ApiService";
 
 function CampaignDataBody() {
   const { campaignList } = useSelector((state) => state.campaign) || [];
+  const [userData, setUserData] = useState(null);
   const dispatch = useDispatch();
   console.log("campaignList inside component", campaignList);
-  useEffect(() => {}, []);
-  const handleGetDate = () => {
+  useEffect(() => {
+    async function fetchData() {
+      const userData = await getUserData();
+      setUserData(userData);
+    }
+    fetchData();
+  }, []);
+  const handleGetDate = async () => {
     dispatch(addCampaigns(campaignStaticData));
   };
 
