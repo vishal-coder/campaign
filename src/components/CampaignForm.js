@@ -6,11 +6,28 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FiSearch } from "react-icons/fi";
+// import days from "dayjs";
+import { formatDate } from "../services/dateService";
+import { format, parseISO } from "date-fns";
 
 function CampaignForm() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
+  const handleStartDate = (date) => {
+    if (endDate && endDate - date < 0) {
+      alert("start date can not be greater than end date");
+      return;
+    }
+    setStartDate(date);
+  };
+  const handleEndDate = (date) => {
+    if (date - startDate < 0) {
+      alert("End date can not be lower than end date");
+      return;
+    }
+    setEndDate(date);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -21,12 +38,15 @@ function CampaignForm() {
         <DatePicker
           placeholderText="Start date"
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date) => handleStartDate(date)}
+          dateFormat="dd/MM/yyyy"
         />
         <DatePicker
           placeholderText="End date"
+          minDate={startDate}
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date) => handleEndDate(date)}
+          dateFormat="dd/MM/yyyy"
         />
       </div>
       <div>
