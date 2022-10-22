@@ -26,8 +26,8 @@ const campaignStaticData = [
   {
     id: 4,
     name: "Trilith",
-    startDate: "8/25/2017",
-    endDate: "11/30/2017",
+    startDate: "3/12/2022",
+    endDate: "1/12/2022",
     Budget: 179838,
     userId: 1,
   },
@@ -42,8 +42,8 @@ const campaignStaticData = [
   {
     id: 6,
     name: "Photojam",
-    startDate: "7/25/2017",
-    endDate: "6/23/2017",
+    startDate: "13/10/2022",
+    endDate: "11/12/2022",
     Budget: 858131,
     userId: 3,
   },
@@ -53,7 +53,7 @@ const campaignStaticData = [
     startDate: "6/27/2017",
     endDate: "1/15/2018",
     Budget: 109078,
-    userId: 2,
+    userId: 22,
   },
   {
     id: 8,
@@ -74,8 +74,8 @@ const campaignStaticData = [
   {
     id: 10,
     name: "Realbridge",
-    startDate: "3/5/2018",
-    endDate: "10/2/2017",
+    startDate: "3/10/2022",
+    endDate: "10/25/2022",
     Budget: 505602,
     userId: 5,
   },

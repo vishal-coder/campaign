@@ -14,5 +14,5 @@ export function formatDate(dateStr) {
     mm = "0" + mm;
   }
 
-  return (dateStr = dd + "-" + mm + "-" + yyyy);
+  return (dateStr = dd + "/" + mm + "/" + yyyy);
 }

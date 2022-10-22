@@ -1,3 +1,40 @@
 .blue {
   background-color: cornflowerblue;
 }
+.activewrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  max-width: 60%;
+  margin: auto;
+}
+
+.Active {
+  display: inline-block;
+  content: "";
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  -moz-border-radius: 7.5px;
+  -webkit-border-radius: 7.5px;
+  border-radius: 7.5px;
+  background-color: green !important;
+}
+
+.InActive {
+  display: inline-block;
+  content: "";
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  -moz-border-radius: 7.5px;
+  -webkit-border-radius: 7.5px;
+  border-radius: 7.5px;
+  background-color: red;
+}
+
+.activeText {
+  display: inline-block;
+}
