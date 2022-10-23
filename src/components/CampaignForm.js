@@ -1,15 +1,24 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FiSearch } from "react-icons/fi";
 import "./campaignform.css";
+import { useSelector, useDispatch } from "react-redux";
+import { setSearchText } from "../store/CampaignSlice";
 
 function CampaignForm() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [searchString, setSearchString] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSearchText = (searchtext) => {
+    setSearchString(searchtext);
+    dispatch(setSearchText(searchtext));
+  };
 
   const handleStartDate = (date) => {
     if (endDate && endDate - date < 0) {
@@ -27,6 +36,7 @@ function CampaignForm() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    dispatch(setSearchText(searchString));
   };
 
   return (
@@ -50,14 +60,18 @@ function CampaignForm() {
         <Form>
           {" "}
           <div className="searchpart">
-            <Form.Control type="text" placeholder="Enter text" />
-            <Button
+            <Form.Control
+              type="text"
+              placeholder="Enter Search text"
+              onKeyUp={(e) => {
+                handleSearchText(e.target.value);
+              }}
+            />
+            {/* <Button
               variant="primary"
               type="submit"
-              onSubmit={(e) => handleSubmit(e)}
-            >
-              <FiSearch />
-            </Button>
+              onClick={(e) => handleSubmit(e)}
+            ></Button> */}
           </div>
         </Form>
       </div>

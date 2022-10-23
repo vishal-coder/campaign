@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { useSelector, useDispatch } from "react-redux";
 import campaignStaticData from "../services/campaignData";
@@ -8,16 +8,39 @@ import { addCampaigns } from "../store/CampaignSlice";
 import "./campaigndata.css";
 
 function CampaignDataBody() {
-  const { campaignList } = useSelector((state) => state.campaign) || [];
+  const { campaignList, searchText } = useSelector((state) => state.campaign);
   const { userList } = useSelector((state) => state.user) || [];
-  console.log("userList", userList);
+  const [localList, setLocalList] = useState(campaignList);
+
+  // console.log("userList", userList);
   const dispatch = useDispatch();
 
-  console.log("campaignList inside component", campaignList);
+  // console.log("campaignList inside component", campaignList);
 
   const handleGetDate = async () => {
     dispatch(addCampaigns(campaignStaticData));
   };
+  useEffect(() => {
+    // setLoading(false);
+    // console.log("searchtext is ", searchText);
+  }, []);
+
+  useEffect(() => {
+    if (true) {
+      const updatedList = campaignList.filter((campaign) => {
+        return campaign.name.toLowerCase().includes(searchText.toLowerCase());
+      });
+      setLocalList(updatedList);
+    }
+    if (!searchText) {
+      setLocalList(campaignList);
+    }
+  }, [searchText]);
+
+  useEffect(() => {
+    console.log("campaignList is useeffect ", campaignList);
+    setLocalList(campaignList);
+  }, [campaignList]);
 
   const getUsername = (userId) => {
     let username = "Unknown";
@@ -35,12 +58,12 @@ function CampaignDataBody() {
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
     const cDate = new Date(currDate);
-    console.log("startDate", sDate, sDate instanceof Date);
-    console.log("endDate", eDate, eDate instanceof Date);
-    console.log("currDate", cDate, cDate instanceof Date);
+    // console.log("startDate", sDate, sDate instanceof Date);
+    // console.log("endDate", eDate, eDate instanceof Date);
+    // console.log("currDate", cDate, cDate instanceof Date);
 
     if (cDate > sDate && cDate < eDate) {
-      console.log("date is between the 2 dates");
+      // console.log("date is between the 2 dates");
       flag = true;
     }
     return flag;
@@ -59,62 +82,67 @@ function CampaignDataBody() {
 
   return (
     <div className="campaigndata">
-      <Table bordered hover>
-        <thead className="blue">
-          <tr>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Active</th>
-            <th>Budget</th>
-          </tr>
-        </thead>
-        <tbody>
-          {console.log("campaignList before map", campaignList)}
-          {campaignList.map((campaign, index) => (
-            <tr key={campaign.id + "" + index + "" + Date.now()}>
-              <td>Campaign {index + 1}</td>
-              <td>{getUsername(campaign.userId)}</td>
-              <td>{campaign.startDate}</td>
-              <td>{campaign.endDate}</td>
-              <td>
-                {/* {isCampaignActive(campaign.startDate, campaign.endDate) ? ( */}
-                <div className="activewrapper">
-                  <div
-                    className={
-                      isCampaignActive(campaign.startDate, campaign.endDate)
-                        ? "Active"
-                        : " InActive"
-                    }
-                  >
-                    {" "}
-                  </div>{" "}
-                  <div className="activeText">
-                    {" "}
-                    {isCampaignActive(campaign.startDate, campaign.endDate)
-                      ? "Active"
-                      : " InActive"}
-                  </div>
-                </div>
-                {/* ) : (
+      {campaignList ? (
+        <>
+          <Table bordered hover>
+            <thead className="blue">
+              <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Active</th>
+                <th>Budget</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* {console.log("campaignList before map", campaignList)} */}
+              {localList.map((campaign, index) => (
+                <tr key={campaign.id + "" + index + "" + Date.now()}>
+                  <td> {campaign.name}</td>
+                  <td>{getUsername(campaign.userId)}</td>
+                  <td>{campaign.startDate}</td>
+                  <td>{campaign.endDate}</td>
+                  <td>
+                    {/* {isCampaignActive(campaign.startDate, campaign.endDate) ? ( */}
+                    <div className="activewrapper">
+                      <div
+                        className={
+                          isCampaignActive(campaign.startDate, campaign.endDate)
+                            ? "Active"
+                            : " InActive"
+                        }
+                      >
+                        {" "}
+                      </div>{" "}
+                      <div className="activeText">
+                        {" "}
+                        {isCampaignActive(campaign.startDate, campaign.endDate)
+                          ? "Active"
+                          : " InActive"}
+                      </div>
+                    </div>
+                    {/* ) : (
                   " Inactive"
                 ) */}
-              </td>
-              <td> {budgetFormatter(campaign.Budget)} USD</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-
-      <button
-        onClick={() => {
-          handleGetDate();
-        }}
-      >
-        {" "}
-        GetDate
-      </button>
+                  </td>
+                  <td> {budgetFormatter(campaign.Budget)} USD</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <button
+            onClick={() => {
+              handleGetDate();
+            }}
+          >
+            {" "}
+            GetDate
+          </button>
+        </>
+      ) : (
+        "Data is loading"
+      )}
     </div>
   );
 }
