@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import { useSelector, useDispatch } from "react-redux";
-import campaignStaticData from "../services/campaignData";
-import { formatDate } from "../services/dateService";
+import { useDispatch, useSelector } from "react-redux";
 import budgetFormatter from "../services/NumberToWord";
-import { addCampaigns } from "../store/CampaignSlice";
 import "./campaigndata.css";
 
 function CampaignDataBody() {
@@ -14,10 +11,6 @@ function CampaignDataBody() {
   const { userList } = useSelector((state) => state.user) || [];
   const [localList, setLocalList] = useState(campaignList);
   const dispatch = useDispatch();
-
-  const handleGetDate = async () => {
-    dispatch(addCampaigns(campaignStaticData));
-  };
 
   useEffect(() => {
     if (true) {
@@ -74,12 +67,8 @@ function CampaignDataBody() {
     const sDate = new Date(startDate);
     const eDate = new Date(endDate);
     const cDate = new Date(currDate);
-    // console.log("startDate", sDate, sDate instanceof Date);
-    // console.log("endDate", eDate, eDate instanceof Date);
-    // console.log("currDate", cDate, cDate instanceof Date);
 
     if (cDate > sDate && cDate < eDate) {
-      // console.log("date is between the 2 dates");
       flag = true;
     }
     return flag;
@@ -92,7 +81,6 @@ function CampaignDataBody() {
     if (dateOfMonth < 10) dateOfMonth = "0" + dateOfMonth;
     var year = currentDate.getFullYear();
     var formattedDate = month + "/" + dateOfMonth + "/" + year;
-    // console.log("final formated date", formattedDate);
     return formattedDate;
   };
 
@@ -112,7 +100,6 @@ function CampaignDataBody() {
               </tr>
             </thead>
             <tbody>
-              {/* {console.log("campaignList before map", campaignList)} */}
               {localList.map((campaign, index) => (
                 <tr key={campaign.id + "" + index + "" + Date.now()}>
                   <td> {campaign.name}</td>
@@ -120,7 +107,6 @@ function CampaignDataBody() {
                   <td>{campaign.startDate}</td>
                   <td>{campaign.endDate}</td>
                   <td>
-                    {/* {isCampaignActive(campaign.startDate, campaign.endDate) ? ( */}
                     <div className="activewrapper">
                       <div
                         className={
@@ -138,23 +124,12 @@ function CampaignDataBody() {
                           : " InActive"}
                       </div>
                     </div>
-                    {/* ) : (
-                  " Inactive"
-                ) */}
                   </td>
                   <td> {budgetFormatter(campaign.Budget)} USD</td>
                 </tr>
               ))}
             </tbody>
           </Table>
-          <button
-            onClick={() => {
-              handleGetDate();
-            }}
-          >
-            {" "}
-            GetDate
-          </button>
         </>
       ) : (
         "Data is loading"

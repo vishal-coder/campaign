@@ -1,17 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FiSearch } from "react-icons/fi";
-import "./campaignform.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setEndDate,
   setSearchText,
   setStartDate,
 } from "../store/CampaignSlice";
+import "./campaignform.css";
 
 function CampaignForm() {
   const [startDateFilter, setStartDateFilter] = useState("");
@@ -76,16 +74,11 @@ function CampaignForm() {
           <div className="searchpart">
             <Form.Control
               type="text"
-              placeholder="Enter Search text"
+              placeholder="Search by Name"
               onKeyUp={(e) => {
                 handleSearchText(e.target.value);
               }}
             />
-            {/* <Button
-              variant="primary"
-              type="submit"
-              onClick={(e) => handleSubmit(e)}
-            ></Button> */}
           </div>
         </Form>
       </div>
