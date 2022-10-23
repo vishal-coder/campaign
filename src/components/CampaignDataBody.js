@@ -8,22 +8,16 @@ import { addCampaigns } from "../store/CampaignSlice";
 import "./campaigndata.css";
 
 function CampaignDataBody() {
-  const { campaignList, searchText } = useSelector((state) => state.campaign);
+  const { campaignList, searchText, startDate, endDate } = useSelector(
+    (state) => state.campaign
+  );
   const { userList } = useSelector((state) => state.user) || [];
   const [localList, setLocalList] = useState(campaignList);
-
-  // console.log("userList", userList);
   const dispatch = useDispatch();
-
-  // console.log("campaignList inside component", campaignList);
 
   const handleGetDate = async () => {
     dispatch(addCampaigns(campaignStaticData));
   };
-  useEffect(() => {
-    // setLoading(false);
-    // console.log("searchtext is ", searchText);
-  }, []);
 
   useEffect(() => {
     if (true) {
@@ -38,9 +32,32 @@ function CampaignDataBody() {
   }, [searchText]);
 
   useEffect(() => {
-    console.log("campaignList is useeffect ", campaignList);
     setLocalList(campaignList);
   }, [campaignList]);
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      const updatedList = campaignList.filter((campaign) => {
+        const sDate = new Date(startDate);
+        const eDate = new Date(endDate);
+        const campaignStartDate = new Date(campaign.startDate);
+        const campaignEndDate = new Date(campaign.endDate);
+
+        // for start date between date filter
+        if (campaignStartDate > sDate && campaignStartDate < eDate) {
+          return campaign;
+        }
+
+        // for end date between date filter
+        if (campaignEndDate > sDate && campaignEndDate < eDate) {
+          return campaign;
+        }
+      });
+      setLocalList(updatedList);
+    } else {
+      setLocalList(campaignList);
+    }
+  }, [startDate, endDate]);
 
   const getUsername = (userId) => {
     let username = "Unknown";
@@ -48,7 +65,6 @@ function CampaignDataBody() {
     if (user) {
       username = user.username;
     }
-
     return username;
   };
 

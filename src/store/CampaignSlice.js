@@ -5,6 +5,8 @@ const campaignSlice = createSlice({
   initialState: {
     campaignList: [],
     searchText: "",
+    startDate: null,
+    endDate: null,
   },
   reducers: {
     addCampaigns: (state, action) => {
@@ -15,12 +17,19 @@ const campaignSlice = createSlice({
     },
 
     setSearchText: (state, action) => {
-      //   console.log("set search text called");
-      // const searchText = action.payload;
       state.searchText = action.payload;
+    },
+
+    setStartDate: (state, action) => {
+      state.startDate = action.payload;
+    },
+
+    setEndDate: (state, action) => {
+      state.endDate = action.payload;
     },
   },
 });
 
 export default campaignSlice.reducer;
-export const { addCampaigns, setSearchText } = campaignSlice.actions;
+export const { addCampaigns, setSearchText, setStartDate, setEndDate } =
+  campaignSlice.actions;

@@ -7,11 +7,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FiSearch } from "react-icons/fi";
 import "./campaignform.css";
 import { useSelector, useDispatch } from "react-redux";
-import { setSearchText } from "../store/CampaignSlice";
+import {
+  setEndDate,
+  setSearchText,
+  setStartDate,
+} from "../store/CampaignSlice";
 
 function CampaignForm() {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDateFilter, setStartDateFilter] = useState("");
+  const [endDateFilter, setEndDateFilter] = useState("");
   const [searchString, setSearchString] = useState("");
   const dispatch = useDispatch();
 
@@ -21,18 +25,28 @@ function CampaignForm() {
   };
 
   const handleStartDate = (date) => {
-    if (endDate && endDate - date < 0) {
+    if (endDateFilter && endDateFilter - date < 0) {
       alert("start date can not be greater than end date");
       return;
     }
-    setStartDate(date);
+    setStartDateFilter(date);
+    if (date) {
+      dispatch(setStartDate(date.toString()));
+    } else {
+      dispatch(setStartDate(null));
+    }
   };
   const handleEndDate = (date) => {
-    if (date - startDate < 0) {
-      alert("End date can not be lower than end date");
+    if (date - startDateFilter < 0) {
+      alert("End date can not be lower than Start date");
       return;
     }
-    setEndDate(date);
+    setEndDateFilter(date);
+    if (date) {
+      dispatch(setEndDate(date.toString()));
+    } else {
+      dispatch(setEndDate(null));
+    }
   };
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,16 +58,16 @@ function CampaignForm() {
       <div className="datepart">
         <DatePicker
           placeholderText="Start date"
-          selected={startDate}
+          selected={startDateFilter}
           onChange={(date) => handleStartDate(date)}
-          dateFormat="dd/MM/yyyy"
+          dateFormat="MM/dd/yyyy"
         />
         <DatePicker
           placeholderText="End date"
-          minDate={startDate}
-          selected={endDate}
+          minDate={startDateFilter}
+          selected={endDateFilter}
           onChange={(date) => handleEndDate(date)}
-          dateFormat="dd/MM/yyyy"
+          dateFormat="MM/dd/yyyy"
         />
       </div>
       <div>

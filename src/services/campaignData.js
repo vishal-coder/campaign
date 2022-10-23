@@ -42,7 +42,7 @@ const campaignStaticData = [
   {
     id: 6,
     name: "Photojam",
-    startDate: "13/10/2022",
+    startDate: "9/10/2022",
     endDate: "11/12/2022",
     Budget: 858131,
     userId: 3,
