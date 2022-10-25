@@ -1,0 +1,22 @@
+.campaignFormDiv {
+  /* max-width: 80vw; */
+  margin: auto;
+  padding: 5 rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.addcampaignform {
+  background-color: white;
+  margin-top: 1rem;
+  display: flex;
+  align-content: space-between;
+  justify-content: space-between;
+  /* gap: 10rem; */
+  padding: 0.5rem;
+}
+
+.submitcampaign-btn {
+  height: 50%;
+  align-self: center;
+}

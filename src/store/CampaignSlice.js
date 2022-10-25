@@ -10,10 +10,8 @@ const campaignSlice = createSlice({
   },
   reducers: {
     addCampaigns: (state, action) => {
-      //   console.log("action", action.payload);
       state.campaignList = [...state.campaignList, ...action.payload];
       state.searchText = "";
-      //   console.log("addCampaigns", state.campaignList);
     },
 
     setSearchText: (state, action) => {

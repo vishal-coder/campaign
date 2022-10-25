@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import campaignStaticData from "../services/campaignData";
 import { addCampaigns } from "../store/CampaignSlice";
+import AddCampaign from "./AddCampaign";
 import "./campaign.css";
 import CampaignDataBody from "./CampaignDataBody";
 import CampaignForm from "./CampaignForm";
@@ -24,6 +25,7 @@ function Campaign() {
     <div className="campaignwrapper">
       <CampaignForm />
       <CampaignDataBody />
+      <AddCampaign />
     </div>
   );
 }

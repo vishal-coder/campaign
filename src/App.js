@@ -10,7 +10,6 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const userData = await getUserData();
-      console.log(userData);
       dispatch(setUserList(userData));
     }
     fetchData();

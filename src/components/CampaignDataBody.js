@@ -68,7 +68,7 @@ function CampaignDataBody() {
     const eDate = new Date(endDate);
     const cDate = new Date(currDate);
 
-    if (cDate > sDate && cDate < eDate) {
+    if (cDate >= sDate && cDate <= eDate) {
       flag = true;
     }
     return flag;

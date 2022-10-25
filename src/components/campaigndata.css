@@ -1,3 +1,7 @@
+.campaigndata {
+  overflow-y: auto;
+  max-height: 60vh;
+}
 .blue {
   background-color: cornflowerblue;
 }
